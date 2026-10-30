@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lucid Essentials · 47 audio plugins, one interface</title>
+  <meta name="description" content="Lucid Essentials is a collection of 47 instruments, effects, MIDI tools and meters as VST3 and Audio Unit plugins, the plugin companion to the agentic DAW LucidProducer.">
+  <meta property="og:title" content="Lucid Essentials · 47 audio plugins, one interface">
+  <meta property="og:description" content="47 instruments, effects, MIDI tools and meters as VST3 and Audio Unit plugins, with one generated interface.">
+  <meta property="og:image" content="img/pipe-organ.jpg">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <style>
+    :root {
+      --bg: #141516;
+      --bg-raised: #1c1e20;
+      --bg-card: #212427;
+      --line: #2e3236;
+      --text: #e6e8ea;
+      --text-dim: #a2a8ae;
+      --accent: #b6ff00;
+      --accent-dim: rgba(182, 255, 0, 0.14);
+      --radius: 10px;
+      --max: 1120px;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: var(--mono); font-size: 0.88em; background: var(--bg-card); padding: 0.1em 0.35em; border-radius: 4px; }
+    img { max-width: 100%; height: auto; display: block; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+
+    nav { position: sticky; top: 0; z-index: 10; background: rgba(20, 21, 22, 0.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+    nav .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; letter-spacing: 0.02em; }
+    nav .brand img { width: 28px; height: 28px; }
+    nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 15px; }
+    nav ul a { color: var(--text-dim); }
+    nav ul a:hover { color: var(--text); text-decoration: none; }
+
+    header.hero { padding: 64px 0 40px; text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(182, 255, 0, 0.12), transparent 60%); }
+    .hero .logo { width: min(340px, 72vw); margin: 0 auto 8px; }
+    .hero h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.15; margin: 16px 0 14px; letter-spacing: -0.01em; }
+    .hero h1 span { color: var(--accent); }
+    .hero p.lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--text-dim); max-width: 760px; margin: 0 auto; }
+    .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 26px 0 0; padding: 0; list-style: none; }
+    .badges li { font-size: 13px; border: 1px solid var(--line); background: var(--bg-raised); color: var(--text-dim); padding: 4px 12px; border-radius: 999px; }
+    .badges li.status { border-color: rgba(214, 158, 46, 0.5); color: #e6b34e; }
+    .hero-shot { margin: 44px auto 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); }
+
+    section { padding: 72px 0; border-top: 1px solid var(--line); }
+    section h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 0 0 10px; letter-spacing: -0.01em; }
+    section p.intro { color: var(--text-dim); max-width: 760px; margin: 0 0 36px; }
+
+    .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+    .card { background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--text-dim); font-size: 15.5px; }
+    .card .tag { display: inline-block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px; }
+
+    .split { display: grid; gap: 40px; grid-template-columns: 1fr 1fr; align-items: center; }
+    .split > * { min-width: 0; }
+    pre.term { margin: 0; background: #0d0e0f; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; overflow-x: auto; font: 13.5px/1.7 var(--mono); color: #cfd4d8; }
+    pre.term .c { color: #6b737a; }
+    pre.term .p { color: var(--accent); }
+    ul.checks { list-style: none; padding: 0; margin: 0; }
+    ul.checks li { padding-left: 26px; position: relative; margin: 0 0 12px; color: var(--text-dim); }
+    ul.checks li strong { color: var(--text); }
+    ul.checks li::before { content: ""; position: absolute; left: 4px; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+
+    .gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); }
+    figure { margin: 0; background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    figure img { width: 100%; cursor: zoom-in; }
+    figcaption { padding: 12px 16px; font-size: 14.5px; color: var(--text-dim); }
+
+    .stack { display: grid; gap: 56px; }
+    .split.flip > :first-child { order: 2; }
+    .facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+    .facts li { font-size: 13.5px; padding: 3px 10px; border-radius: 6px; background: var(--accent-dim); color: var(--accent); font-family: var(--mono); }
+
+    .notice { background: var(--bg-raised); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 24px 26px; }
+    .notice h3 { margin: 0 0 6px; }
+    .notice p { margin: 0; color: var(--text-dim); }
+
+    footer { border-top: 1px solid var(--line); padding: 40px 0 56px; color: var(--text-dim); font-size: 15px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; align-items: center; }
+    footer .author { display: flex; align-items: center; gap: 12px; }
+    footer .li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg-raised); color: var(--text); }
+    footer .li:hover { border-color: var(--accent); text-decoration: none; }
+    footer .li svg { width: 18px; height: 18px; fill: #0a66c2; background: #fff; border-radius: 3px; }
+    footer small { display: block; width: 100%; font-size: 13px; color: #7a8187; }
+
+    dialog { padding: 0; border: none; background: transparent; max-width: 96vw; max-height: 94vh; }
+    dialog::backdrop { background: rgba(0, 0, 0, 0.85); }
+    dialog img { max-height: 92vh; width: auto; border-radius: 8px; cursor: zoom-out; }
+
+    @media (max-width: 820px) {
+      .split { grid-template-columns: 1fr; }
+      .split.flip > :first-child { order: 0; }
+      nav ul { display: none; }
+      .gallery { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      section { padding: 56px 0; }
+    }
+  
+    .cat { font-size: 19px; margin: 40px 0 14px; }
+    .cat:first-of-type { margin-top: 0; }
+    .cat span { color: var(--text-dim); font-weight: 400; font-size: 15px; margin-left: 6px; }
+    .plugins .card { padding: 16px 18px; }
+    .plugins .card h3 { font-size: 16px; margin-bottom: 4px; }
+    .plugins .card p { font-size: 14.5px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/favicon.png" alt="">Lucid Essentials</a>
+    <ul>
+      <li><a href="#plugins">Plugins</a></li>
+      <li><a href="#screenshots">Screenshots</a></li>
+      <li><a href="#design">Design</a></li>
+      <li><a href="#agents">For agents</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <img class="logo" src="img/logo.png" alt="Lucid Essentials logo">
+    <h1>47 plugins, <span>one</span> interface</h1>
+    <p class="lead">
+      Instruments, effects, MIDI tools and meters as VST3 and Audio Unit plugins. They supply
+      LucidProducer's instruments and effects and run in any DAW that loads those formats.
+    </p>
+    <ul class="badges">
+      <li>C++20 · JUCE 8</li>
+      <li>VST3 · Audio Unit</li>
+      <li>macOS · Linux draft (VST3)</li>
+      <li>Command line tool</li>
+      <li class="status">Pre-alpha · 0.1.6</li>
+    </ul>
+    <div class="hero-shot">
+      <img src="img/pipe-organ.jpg" alt="The Lucid Pipe Organ editor: stop knobs, a swell box, an output knob and a playable keyboard" width="1280" height="819">
+    </div>
+  </div>
+</header>
+
+<section id="plugins">
+  <div class="wrap">
+    <h2>The plugins</h2>
+    <p class="intro">
+      Twelve instruments, four MIDI tools, 26 effects and five meters. Several instruments are
+      physical models: the organ's pipes, a bowed string, a clarinet's reed and bore.
+    </p>
+    <h3 class="cat">Instruments <span>12</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Synth</h3><p>A warm subtractive synth: two oscillators, sub and noise, unison, a ladder filter, an LFO and glide</p></div>
+        <div class="card"><h3>Granular</h3><p>A granular cloud synth: grains from built-in voices, bells, strings or your own file, sprayed, scanned, frozen and shimmered</p></div>
+        <div class="card"><h3>Drums</h3><p>A synthesized GM drum machine: punchy kicks, snappy snares, shimmering metal and 47 pieces</p></div>
+        <div class="card"><h3>Sampler</h3><p>A clean chromatic sampler: one file across the keyboard with band-limited playback, crossfaded loops, a filter and glide</p></div>
+        <div class="card"><h3>Sample Kit</h3><p>A drum sampler for GM kits: a file on every drum key from 35 to 81, loaded from a folder, with level, tune, decay and choke groups per pad</p></div>
+        <div class="card"><h3>Pipe Organ</h3><p>A pipe organ of modelled pipes: twelve flue and reed stops, live wind, tremulant, swell box and historical tunings</p></div>
+        <div class="card"><h3>Pluck</h3><p>A modelled plucked string: fitted to real guitars, with palm mute, stiffness, pick position and a buzzing bridge</p></div>
+        <div class="card"><h3>Bow</h3><p>A bowed string: violin to bass, played with the bow arm</p></div>
+        <div class="card"><h3>Brass</h3><p>Buzzing lips on a brass bore: trumpet, horn, trombone</p></div>
+        <div class="card"><h3>Reed</h3><p>A clarinet&#x27;s reed and bore, blown with breath and velocity</p></div>
+        <div class="card"><h3>Bagpipes</h3><p>Highland pipes and smallpipes: a bag blows a reed chanter and three drones that never stop</p></div>
+        <div class="card"><h3>Hurdy-Gurdy</h3><p>A cranked hurdy-gurdy: a rosined wheel bows the melody, two drones and a buzzing trompette</p></div>
+    </div>
+    <h3 class="cat">MIDI tools <span>4</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Arp</h3><p>Arpeggiator: tempo-synced patterns with swing, accents and a step sequencer</p></div>
+        <div class="card"><h3>Chords</h3><p>Chord trigger: one key plays a full chord, fixed or in key, voiced, inverted and strummed</p></div>
+        <div class="card"><h3>Scale</h3><p>Scale quantizer: keeps every note in key, moves lines by scale degrees, holds them in a range</p></div>
+        <div class="card"><h3>Humanize</h3><p>MIDI humanizer: loose timing, swing, velocity curves and note lengths that make programmed parts feel played</p></div>
+    </div>
+    <h3 class="cat">EQ and filters <span>5</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>EQ</h3><p>Eight-band channel EQ: steep cuts, resonant shelves, four peaks and an exact response curve</p></div>
+        <div class="card"><h3>Dynamic EQ</h3><p>Four-band dynamic EQ: bells and shelves that cut or lift only while their band is loud, keyed by the track or a sidechain</p></div>
+        <div class="card"><h3>Lowpass</h3><p>Resonant low-pass filter: clean to ladder grit, with LFO, envelope follower and stereo spread</p></div>
+        <div class="card"><h3>Highpass</h3><p>Resonant high-pass filter: clean-ups, risers and thin, moving textures</p></div>
+        <div class="card"><h3>Bandpass</h3><p>Resonant band-pass filter: center and width, from telephone to wah to siren</p></div>
+    </div>
+    <h3 class="cat">Dynamics <span>8</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Compressor</h3><p>Clean feed-forward compressor: soft knee, peak or RMS detection, a sidechain filter and parallel mix</p></div>
+        <div class="card"><h3>Bus Compressor</h3><p>Glue bus compressor: stepped console-style ratio, attack and release, auto release, a sidechain filter, external key and parallel mix</p></div>
+        <div class="card"><h3>Multiband</h3><p>Multiband compressor for masters: three or four phase-coherent bands, each with its own threshold, ratio, timing and makeup</p></div>
+        <div class="card"><h3>Limiter</h3><p>Lookahead brickwall limiter: true-peak detection, adaptive release and a hard output ceiling</p></div>
+        <div class="card"><h3>Gate</h3><p>Noise gate and expander: hysteresis, hold, lookahead, a filtered key you can listen to and a click-free gain curve</p></div>
+        <div class="card"><h3>De-esser</h3><p>Sibilance control, split or wide: turns down harsh esses only while they stick out, with a relative threshold that follows the voice</p></div>
+        <div class="card"><h3>Ducker</h3><p>Sidechain ducker and expander: duck under a kick or a voice, expand from a key, or pump in time without a sidechain</p></div>
+        <div class="card"><h3>Transient</h3><p>Transient shaper: more or less attack and sustain at any level, with no threshold to set</p></div>
+    </div>
+    <h3 class="cat">Space <span>3</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Reverb</h3><p>Algorithmic stereo reverb: smooth, dense tails from small rooms to endless halls</p></div>
+        <div class="card"><h3>IR Reverb</h3><p>Convolution reverb: ten real spaces from the OpenAIR library (CC BY 4.0) and your own impulse responses</p></div>
+        <div class="card"><h3>Delay</h3><p>Tempo-synced stereo delay: ping-pong, tape age and ducking, from slapback to dub</p></div>
+    </div>
+    <h3 class="cat">Modulation <span>4</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Chorus</h3><p>Lush stereo chorus: one to three voices, from subtle doubling to wide ensembles</p></div>
+        <div class="card"><h3>Flanger</h3><p>Stereo feedback flanger: from a gentle swirl to a screaming jet</p></div>
+        <div class="card"><h3>Phaser</h3><p>Stereo allpass phaser: from a gentle 4-stage swirl to a resonant 12-stage sweep</p></div>
+        <div class="card"><h3>Tremolo</h3><p>Tremolo and auto-pan: amp-style throb, harmonic tremolo and tempo-locked chops that never click</p></div>
+    </div>
+    <h3 class="cat">Drive and colour <span>4</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Saturation</h3><p>Tape, tube, transformer, console: analog warmth that adds harmonics to tracks and buses without sounding distorted</p></div>
+        <div class="card"><h3>Overdrive</h3><p>Warm, touch-sensitive drive: screamer mid push, blues crunch or tube warmth</p></div>
+        <div class="card"><h3>Distortion</h3><p>Five-mode distortion: hard clip, sputtering fuzz, wavefolding, rectifying and lo-fi crushing, oversampled</p></div>
+        <div class="card"><h3>Cabinet</h3><p>Guitar and bass cabinet simulator: captured and designed cabinets, two mics, distance and your own IRs</p></div>
+    </div>
+    <h3 class="cat">Stereo and utility <span>2</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Imager</h3><p>Multiband stereo imager: width per band, bass mono, mid / side balance and a mono-safe stereoizer, with correlation and balance meters</p></div>
+        <div class="card"><h3>Utility</h3><p>Gain, pan and stereo toolbox: trim, balance, widen, mono the bass, flip polarity and align channels on any track</p></div>
+    </div>
+    <h3 class="cat">Meters <span>5</span></h3>
+    <div class="grid plugins">
+        <div class="card"><h3>Spectrum</h3><p>Real-time spectrum analyzer: a calibrated FFT spectrum with average, peak hold, slope and left / right or mid / side curves</p></div>
+        <div class="card"><h3>Spectrogram</h3><p>Scrolling spectrogram: a heat map of the spectrum over time, on a log or linear frequency axis, in four color maps</p></div>
+        <div class="card"><h3>Loudness</h3><p>EBU R128 loudness meter: integrated, short-term and momentary LUFS, loudness range and true peak against your delivery target</p></div>
+        <div class="card"><h3>Stereo Scope</h3><p>Stereo field meter: a goniometer with phase correlation per band, balance and width, to check mono compatibility and the stereo image</p></div>
+        <div class="card"><h3>Pitch</h3><p>Tuner and pitch tracker: a cent-accurate needle and a scrolling melody line for any monophonic source</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="wrap">
+    <h2>Screenshots</h2>
+    <p class="intro">Rendered from the plugins' own editors. Click an image to enlarge it.</p>
+    <div class="gallery">
+      <figure><img src="img/eq.jpg" alt="The Lucid EQ editor with its response curve" width="1280" height="1259" loading="lazy"><figcaption>Lucid EQ: eight bands and an exact response curve.</figcaption></figure>
+      <figure><img src="img/synth.jpg" alt="The Lucid Synth editor on its oscillators page" width="1280" height="1138" loading="lazy"><figcaption>Lucid Synth: oscillators, sub and noise on the first page.</figcaption></figure>
+      <figure><img src="img/granular.jpg" alt="The Lucid Granular editor on its grains page" width="1280" height="1017" loading="lazy"><figcaption>Lucid Granular: a cloud of grains from built-in voices or your own file.</figcaption></figure>
+      <figure><img src="img/drums.jpg" alt="The Lucid Drums editor showing the kit page" width="1280" height="973" loading="lazy"><figcaption>Lucid Drums: a fully synthesized General MIDI kit.</figcaption></figure>
+      <figure><img src="img/multiband.jpg" alt="The Lucid Multiband editor" width="1280" height="1176" loading="lazy"><figcaption>Lucid Multiband: phase-coherent bands for masters.</figcaption></figure>
+      <figure><img src="img/spectrogram.jpg" alt="The Lucid Spectrogram editor showing a heat map" width="1280" height="861" loading="lazy"><figcaption>Lucid Spectrogram: the spectrum over time.</figcaption></figure>
+      <figure><img src="img/loudness.jpg" alt="The Lucid Loudness meter" width="1280" height="861" loading="lazy"><figcaption>Lucid Loudness: EBU R128 against your delivery target.</figcaption></figure>
+      <figure><img src="img/arp.jpg" alt="The Lucid Arp editor with its step sequencer" width="1280" height="969" loading="lazy"><figcaption>Lucid Arp: a MIDI tool with a step sequencer.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="design">
+  <div class="wrap">
+    <h2>One code base, one interface</h2>
+    <p class="intro">
+      No plugin has editor code of its own. Each one describes its parameters and sections, and a
+      shared library builds the window, so all 47 look and behave the same.
+    </p>
+    <div class="grid">
+      <div class="card"><span class="tag">Interface</span><h3>Generated editors</h3>
+        <p>Knobs, selectors and displays are laid out at runtime from a short description. Each
+          plugin gets its own tint, and its emblem is generated from a seed.</p></div>
+      <div class="card"><span class="tag">Workflow</span><h3>Presets, A/B and zoom</h3>
+        <p>Every editor has the same top bar: a preset browser with factory presets, A/B
+          comparison and three zoom sizes.</p></div>
+      <div class="card"><span class="tag">Real time</span><h3>No allocations on the audio thread</h3>
+        <p>Processing never allocates, locks or does file I/O. A shared test suite counts
+          allocations for every plugin, and pluginval and auval validate the builds.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="agents">
+  <div class="wrap split">
+    <div>
+      <h2>Testable without a host</h2>
+      <p class="intro" style="margin-bottom:24px">
+        A command line tool drives any plugin offline with JSON output, so an AI agent or a CI job
+        can build and check a plugin without opening a DAW.
+      </p>
+      <ul class="checks">
+        <li><strong>Render audio.</strong> Process a test signal through a plugin with any
+          parameter settings and write a WAV.</li>
+        <li><strong>Read the parameters.</strong> Dump a plugin's parameter catalog as JSON.</li>
+        <li><strong>Look at the editor.</strong> Render a plugin's window to a PNG, and check every
+          layout for problems.</li>
+      </ul>
+    </div>
+    <pre class="term"><span class="p">$</span> lucid-essentials-cli list
+<span class="p">$</span> lucid-essentials-cli params LucidChorus
+
+<span class="c"># render audio with parameter settings</span>
+<span class="p">$</span> lucid-essentials-cli render LucidChorus -o out.wav \
+    --signal drums --set mix=60 --set rate_hz=0.5
+
+<span class="c"># look at the editor, check every layout</span>
+<span class="p">$</span> lucid-essentials-cli snapshot LucidChorus -o chorus.png
+<span class="p">$</span> lucid-essentials-cli check all</pre>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="notice">
+      <h3>Not available for download yet</h3>
+      <p>
+        Lucid Essentials is in pre-alpha on macOS, with a draft Linux build. It is part of the
+        <a href="https://ai-guru.github.io/lucidmusicsuite-site/">Lucid Music Suite</a>, next to
+        <a href="https://ai-guru.github.io/lucidproducer-site/">LucidProducer</a> and
+        <a href="https://ai-guru.github.io/lucidperformer-site/">LucidPerformer</a>, which load
+        these plugins first. The impulse responses in Lucid IR Reverb come from the OpenAIR
+        library (CC BY 4.0).
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="author">Made by Dr. Tristan Behrens</div>
+    <a class="li" href="https://www.linkedin.com/in/dr-tristan-behrens-734967a2/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      Connect on LinkedIn
+    </a>
+    <small>VST is a trademark of Steinberg Media Technologies GmbH. Audio Units is a trademark of Apple Inc. Other names are trademarks of their respective owners.</small>
+  </div>
+</footer>
+
+<dialog id="zoom"><img alt=""></dialog>
+<script>
+  const zoom = document.getElementById("zoom");
+  const zoomImg = zoom.querySelector("img");
+  document.querySelectorAll(".gallery img, .hero-shot img").forEach((img) => {
+    img.addEventListener("click", () => {
+      zoomImg.src = img.src;
+      zoomImg.alt = img.alt;
+      zoom.showModal();
+    });
+  });
+  zoom.addEventListener("click", () => zoom.close());
+</script>
+</body>
+</html>
