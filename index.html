@@ -46,6 +46,9 @@
     nav ul a { color: var(--text-dim); }
     nav ul a:hover { color: var(--text); text-decoration: none; }
 
+    .collage { display: block; }
+    .collage img { width: 100%; }
+
     header.hero { padding: 64px 0 40px; text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(182, 255, 0, 0.12), transparent 60%); }
     .hero .logo { width: min(340px, 72vw); margin: 0 auto 8px; }
     .hero h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.15; margin: 16px 0 14px; letter-spacing: -0.01em; }
@@ -54,9 +57,7 @@
     .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 26px 0 0; padding: 0; list-style: none; }
     .badges li { font-size: 13px; border: 1px solid var(--line); background: var(--bg-raised); color: var(--text-dim); padding: 4px 12px; border-radius: 999px; }
     .badges li.status { border-color: rgba(214, 158, 46, 0.5); color: #e6b34e; }
-    .hero-shot { display: block; margin: 44px auto 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); }
 
-    .hero p.caption { margin: 12px 0 0; font-size: 14px; color: var(--text-dim); }
 
     section { padding: 72px 0; border-top: 1px solid var(--line); }
     section h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 0 0 10px; letter-spacing: -0.01em; }
@@ -78,10 +79,6 @@
     ul.checks li strong { color: var(--text); }
     ul.checks li::before { content: ""; position: absolute; left: 4px; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
-    .gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); }
-    figure { margin: 0; background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-    figure img { width: 100%; cursor: zoom-in; }
-    figcaption { padding: 12px 16px; font-size: 14.5px; color: var(--text-dim); }
 
     .stack { display: grid; gap: 56px; }
     .split.flip > :first-child { order: 2; }
@@ -108,15 +105,20 @@
       .split { grid-template-columns: 1fr; }
       .split.flip > :first-child { order: 0; }
       nav ul { display: none; }
-      .gallery { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr; }
+        .grid { grid-template-columns: 1fr; }
       section { padding: 56px 0; }
     }
   
     .cat { font-size: 19px; margin: 40px 0 14px; }
     .cat:first-of-type { margin-top: 0; }
     .cat span { color: var(--text-dim); font-weight: 400; font-size: 15px; margin-left: 6px; }
-    .plugins .card { padding: 16px 18px; }
+    .plugins .card { padding: 0 0 16px; overflow: hidden; }
+    .plugins .card > img { width: 100%; border-bottom: 1px solid var(--line); }
+    .plugins .card img { cursor: zoom-in; }
+    .plugins .pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; padding: 8px 18px 0; }
+    .plugins .pages img { border-radius: 4px; border: 1px solid var(--line); }
+    .plugins .card h3, .plugins .card p { padding: 0 18px; }
+    .plugins .card h3 { margin-top: 14px; }
     .plugins .card h3 { font-size: 16px; margin-bottom: 4px; }
     .plugins .card p { font-size: 14.5px; line-height: 1.5; }
   </style>
@@ -128,7 +130,6 @@
     <a class="brand" href="#top"><img src="img/favicon.png" alt="">Lucid Essentials</a>
     <ul>
       <li><a href="#plugins">Plugins</a></li>
-      <li><a href="#screenshots">Screenshots</a></li>
       <li><a href="#design">Design</a></li>
       <li><a href="#agents">For agents</a></li>
       <li><a href="#about">About</a></li>
@@ -136,7 +137,11 @@
   </div>
 </nav>
 
-<header class="hero" id="top">
+<a class="collage" id="top" href="img/collage-full.jpg" title="Open the full-size collage">
+  <img src="img/collage.jpg" alt="A collage of every page of all 64 Lucid Essentials plugin editors" width="1600" height="945">
+</a>
+
+<header class="hero">
   <div class="wrap">
     <img class="logo" src="img/logo.png" alt="Lucid Essentials logo">
     <h1>64 plugins, <span>one</span> interface</h1>
@@ -147,14 +152,10 @@
     <ul class="badges">
       <li>C++20 · JUCE 8</li>
       <li>VST3 · Audio Unit</li>
-      <li>macOS · Linux draft (VST3)</li>
+      <li>macOS · Linux draft (VST3, Standalone)</li>
       <li>Command line tool</li>
       <li class="status">Pre-alpha · 0.2.0</li>
     </ul>
-    <a class="hero-shot" href="img/collage-full.jpg" title="Open the full-size collage">
-      <img src="img/collage.jpg" alt="A collage of every page of all 64 Lucid Essentials plugin editors" width="1600" height="945">
-    </a>
-    <p class="caption">Every page of every plugin. Click for the full-size image.</p>
   </div>
 </header>
 
@@ -163,128 +164,111 @@
     <h2>The plugins</h2>
     <p class="intro">
       19 instruments, four MIDI tools, 34 effects and seven meters. Several instruments are
-      physical models: the organ's pipes, a bowed string, a clarinet's reed and bore.
+      physical models: the organ's pipes, a bowed string, a clarinet's reed and bore. Every editor
+      page is shown; click an image to enlarge it.
     </p>
     <h3 class="cat">Synths <span>5</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Synth</h3><p>A warm subtractive synth: two oscillators, sub and noise, unison, a ladder filter, an LFO and glide</p></div>
-        <div class="card"><h3>FM</h3><p>A four-operator FM synth: eight algorithms, feedback, bells, basses and electric pianos</p></div>
-        <div class="card"><h3>Wavetable</h3><p>A morphing wavetable synth: two oscillators through built-in tables, unison, sub and noise, a filter, two envelopes, two LFOs and a mod matrix</p></div>
-        <div class="card"><h3>Choir</h3><p>A choir and formant pad: ensembles of glottal sources through morphing vowel formants, bass to soprano</p></div>
-        <div class="card"><h3>Granular</h3><p>A granular cloud synth: grains from built-in voices, bells, strings or your own file, sprayed, scanned, frozen and shimmered</p></div>
+        <article class="card"><img src="img/plugins/lucid-synth-1-oscillators.jpg" alt="The Lucid Synth editor, oscillators page" title="oscillators" width="1200" height="868" loading="lazy"><div class="pages"><img src="img/plugins/lucid-synth-2-filter.jpg" alt="The Lucid Synth editor, filter page" title="filter" width="1200" height="868" loading="lazy"><img src="img/plugins/lucid-synth-3-envelopes.jpg" alt="The Lucid Synth editor, envelopes page" title="envelopes" width="1200" height="868" loading="lazy"><img src="img/plugins/lucid-synth-4-lfo-voice.jpg" alt="The Lucid Synth editor, lfo voice page" title="lfo voice" width="1200" height="868" loading="lazy"></div><h3>Synth</h3><p>A warm subtractive synth: two oscillators, sub and noise, unison, a ladder filter, an LFO and glide</p></article>
+        <article class="card"><img src="img/plugins/lucid-fm-1-operators.jpg" alt="The Lucid FM editor, operators page" title="operators" width="1200" height="872" loading="lazy"><div class="pages"><img src="img/plugins/lucid-fm-2-envelopes.jpg" alt="The Lucid FM editor, envelopes page" title="envelopes" width="1200" height="872" loading="lazy"><img src="img/plugins/lucid-fm-3-filter-lfo-voice.jpg" alt="The Lucid FM editor, filter lfo voice page" title="filter lfo voice" width="1200" height="872" loading="lazy"></div><h3>FM</h3><p>A four-operator FM synth: eight algorithms, feedback, bells, basses and electric pianos</p></article>
+        <article class="card"><img src="img/plugins/lucid-wavetable-1-oscillators.jpg" alt="The Lucid Wavetable editor, oscillators page" title="oscillators" width="1200" height="853" loading="lazy"><div class="pages"><img src="img/plugins/lucid-wavetable-2-filter.jpg" alt="The Lucid Wavetable editor, filter page" title="filter" width="1200" height="853" loading="lazy"><img src="img/plugins/lucid-wavetable-3-envelopes.jpg" alt="The Lucid Wavetable editor, envelopes page" title="envelopes" width="1200" height="853" loading="lazy"><img src="img/plugins/lucid-wavetable-4-lfos-voice.jpg" alt="The Lucid Wavetable editor, lfos voice page" title="lfos voice" width="1200" height="853" loading="lazy"><img src="img/plugins/lucid-wavetable-5-mod-matrix.jpg" alt="The Lucid Wavetable editor, mod matrix page" title="mod matrix" width="1200" height="853" loading="lazy"></div><h3>Wavetable</h3><p>A morphing wavetable synth: two oscillators through built-in tables, unison, sub and noise, a filter, two envelopes, two LFOs and a mod matrix</p></article>
+        <article class="card"><img src="img/plugins/lucid-choir-1-choir.jpg" alt="The Lucid Choir editor, choir page" title="choir" width="1200" height="971" loading="lazy"><div class="pages"><img src="img/plugins/lucid-choir-2-modulation.jpg" alt="The Lucid Choir editor, modulation page" title="modulation" width="1200" height="971" loading="lazy"></div><h3>Choir</h3><p>A choir and formant pad: ensembles of glottal sources through morphing vowel formants, bass to soprano</p></article>
+        <article class="card"><img src="img/plugins/lucid-granular-1-grains.jpg" alt="The Lucid Granular editor, grains page" title="grains" width="1200" height="898" loading="lazy"><div class="pages"><img src="img/plugins/lucid-granular-2-voice-tone.jpg" alt="The Lucid Granular editor, voice tone page" title="voice tone" width="1200" height="898" loading="lazy"></div><h3>Granular</h3><p>A granular cloud synth: grains from built-in voices, bells, strings or your own file, sprayed, scanned, frozen and shimmered</p></article>
     </div>
     <h3 class="cat">Keys and mallets <span>3</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>E-Piano</h3><p>A physically modelled electric piano: tine and reed, bark, bell, damper thunk and suitcase tremolo</p></div>
-        <div class="card"><h3>Mallets</h3><p>Mallet percussion by modal synthesis: marimba, xylophone, vibraphone, glockenspiel, tubular bells and kalimba</p></div>
-        <div class="card"><h3>Pipe Organ</h3><p>A pipe organ of modelled pipes: twelve flue and reed stops, live wind, tremulant, swell box and historical tunings</p></div>
+        <article class="card"><img src="img/plugins/lucid-e-piano-1-piano.jpg" alt="The Lucid E-Piano editor, piano page" title="piano" width="1200" height="761" loading="lazy"><div class="pages"><img src="img/plugins/lucid-e-piano-2-tremolo-drive.jpg" alt="The Lucid E-Piano editor, tremolo drive page" title="tremolo drive" width="1200" height="761" loading="lazy"></div><h3>E-Piano</h3><p>A physically modelled electric piano: tine and reed, bark, bell, damper thunk and suitcase tremolo</p></article>
+        <article class="card"><img src="img/plugins/lucid-mallets.jpg" alt="The Lucid Mallets editor" width="1200" height="871" loading="lazy"><h3>Mallets</h3><p>Mallet percussion by modal synthesis: marimba, xylophone, vibraphone, glockenspiel, tubular bells and kalimba</p></article>
+        <article class="card"><img src="img/plugins/lucid-pipe-organ-1-stops.jpg" alt="The Lucid Pipe Organ editor, stops page" title="stops" width="1200" height="647" loading="lazy"><div class="pages"><img src="img/plugins/lucid-pipe-organ-2-wind-voicing.jpg" alt="The Lucid Pipe Organ editor, wind voicing page" title="wind voicing" width="1200" height="647" loading="lazy"><img src="img/plugins/lucid-pipe-organ-3-case-tuning-room.jpg" alt="The Lucid Pipe Organ editor, case tuning room page" title="case tuning room" width="1200" height="647" loading="lazy"></div><h3>Pipe Organ</h3><p>A pipe organ of modelled pipes: twelve flue and reed stops, live wind, tremulant, swell box and historical tunings</p></article>
     </div>
     <h3 class="cat">Physical models <span>6</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Pluck</h3><p>A modelled plucked string: fitted to real guitars, with palm mute, stiffness, pick position and a buzzing bridge</p></div>
-        <div class="card"><h3>Bow</h3><p>A bowed string: violin to bass, played with the bow arm</p></div>
-        <div class="card"><h3>Reed</h3><p>A clarinet&#x27;s reed and bore, blown with breath and velocity</p></div>
-        <div class="card"><h3>Brass</h3><p>Buzzing lips on a brass bore: trumpet, horn, trombone</p></div>
-        <div class="card"><h3>Hurdy-Gurdy</h3><p>A cranked hurdy-gurdy: a rosined wheel bows the melody, two drones and a buzzing trompette</p></div>
-        <div class="card"><h3>Bagpipes</h3><p>Highland pipes and smallpipes: a bag blows a reed chanter and three drones that never stop</p></div>
+        <article class="card"><img src="img/plugins/lucid-pluck-1-string.jpg" alt="The Lucid Pluck editor, string page" title="string" width="1200" height="761" loading="lazy"><div class="pages"><img src="img/plugins/lucid-pluck-2-mute-body.jpg" alt="The Lucid Pluck editor, mute body page" title="mute body" width="1200" height="761" loading="lazy"><img src="img/plugins/lucid-pluck-3-play.jpg" alt="The Lucid Pluck editor, play page" title="play" width="1200" height="761" loading="lazy"></div><h3>Pluck</h3><p>A modelled plucked string: fitted to real guitars, with palm mute, stiffness, pick position and a buzzing bridge</p></article>
+        <article class="card"><img src="img/plugins/lucid-bow-1-bow.jpg" alt="The Lucid Bow editor, bow page" title="bow" width="1200" height="932" loading="lazy"><div class="pages"><img src="img/plugins/lucid-bow-2-expression.jpg" alt="The Lucid Bow editor, expression page" title="expression" width="1200" height="932" loading="lazy"></div><h3>Bow</h3><p>A bowed string: violin to bass, played with the bow arm</p></article>
+        <article class="card"><img src="img/plugins/lucid-reed-1-breath.jpg" alt="The Lucid Reed editor, breath page" title="breath" width="1200" height="932" loading="lazy"><div class="pages"><img src="img/plugins/lucid-reed-2-expression.jpg" alt="The Lucid Reed editor, expression page" title="expression" width="1200" height="932" loading="lazy"></div><h3>Reed</h3><p>A clarinet&#x27;s reed and bore, blown with breath and velocity</p></article>
+        <article class="card"><img src="img/plugins/lucid-brass-1-breath.jpg" alt="The Lucid Brass editor, breath page" title="breath" width="1200" height="932" loading="lazy"><div class="pages"><img src="img/plugins/lucid-brass-2-expression.jpg" alt="The Lucid Brass editor, expression page" title="expression" width="1200" height="932" loading="lazy"></div><h3>Brass</h3><p>Buzzing lips on a brass bore: trumpet, horn, trombone</p></article>
+        <article class="card"><img src="img/plugins/lucid-hurdy-gurdy-1-wheel-melody.jpg" alt="The Lucid Hurdy-Gurdy editor, wheel melody page" title="wheel melody" width="1200" height="735" loading="lazy"><div class="pages"><img src="img/plugins/lucid-hurdy-gurdy-2-drones-chien.jpg" alt="The Lucid Hurdy-Gurdy editor, drones chien page" title="drones chien" width="1200" height="735" loading="lazy"></div><h3>Hurdy-Gurdy</h3><p>A cranked hurdy-gurdy: a rosined wheel bows the melody, two drones and a buzzing trompette</p></article>
+        <article class="card"><img src="img/plugins/lucid-bagpipes-1-chanter-drones.jpg" alt="The Lucid Bagpipes editor, chanter drones page" title="chanter drones" width="1200" height="688" loading="lazy"><div class="pages"><img src="img/plugins/lucid-bagpipes-2-bag-output.jpg" alt="The Lucid Bagpipes editor, bag output page" title="bag output" width="1200" height="688" loading="lazy"></div><h3>Bagpipes</h3><p>Highland pipes and smallpipes: a bag blows a reed chanter and three drones that never stop</p></article>
     </div>
     <h3 class="cat">Drums <span>2</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Drums</h3><p>A synthesized GM drum machine: punchy kicks, snappy snares, shimmering metal and 47 pieces</p></div>
-        <div class="card"><h3>Drum Synth</h3><p>An analog-style drum synth: eleven deep voices, from a sweeping kick to choked hats</p></div>
+        <article class="card"><img src="img/plugins/lucid-drums-1-kit.jpg" alt="The Lucid Drums editor, kit page" title="kit" width="1200" height="912" loading="lazy"><div class="pages"><img src="img/plugins/lucid-drums-2-kick-snare-toms.jpg" alt="The Lucid Drums editor, kick snare toms page" title="kick snare toms" width="1200" height="912" loading="lazy"><img src="img/plugins/lucid-drums-3-cymbals-percussion.jpg" alt="The Lucid Drums editor, cymbals percussion page" title="cymbals percussion" width="1200" height="912" loading="lazy"></div><h3>Drums</h3><p>A synthesized GM drum machine: punchy kicks, snappy snares, shimmering metal and 47 pieces</p></article>
+        <article class="card"><img src="img/plugins/lucid-drum-synth-1-kit.jpg" alt="The Lucid Drum Synth editor, kit page" title="kit" width="1200" height="1134" loading="lazy"><div class="pages"><img src="img/plugins/lucid-drum-synth-2-kick-snare-clap.jpg" alt="The Lucid Drum Synth editor, kick snare clap page" title="kick snare clap" width="1200" height="1134" loading="lazy"><img src="img/plugins/lucid-drum-synth-3-hats-cymbal.jpg" alt="The Lucid Drum Synth editor, hats cymbal page" title="hats cymbal" width="1200" height="1134" loading="lazy"><img src="img/plugins/lucid-drum-synth-4-toms.jpg" alt="The Lucid Drum Synth editor, toms page" title="toms" width="1200" height="1134" loading="lazy"><img src="img/plugins/lucid-drum-synth-5-rim-cowbell.jpg" alt="The Lucid Drum Synth editor, rim cowbell page" title="rim cowbell" width="1200" height="1134" loading="lazy"></div><h3>Drum Synth</h3><p>An analog-style drum synth: eleven deep voices, from a sweeping kick to choked hats</p></article>
     </div>
     <h3 class="cat">Samplers <span>3</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Sampler</h3><p>A clean chromatic sampler: one file across the keyboard with band-limited playback, crossfaded loops, a filter and glide</p></div>
-        <div class="card"><h3>Sample Kit</h3><p>A drum sampler for GM kits: a file on every drum key from 35 to 81, loaded from a folder, with level, tune, decay and choke groups per pad</p></div>
-        <div class="card"><h3>Nineties Sampler</h3><p>Sample-ROM player: the nineties sound from SF2 / SoundFont 2 files, with a built-in font when none is loaded</p></div>
+        <article class="card"><img src="img/plugins/lucid-sampler-1-sample.jpg" alt="The Lucid Sampler editor, sample page" title="sample" width="1200" height="1001" loading="lazy"><div class="pages"><img src="img/plugins/lucid-sampler-2-amp-filter-voice.jpg" alt="The Lucid Sampler editor, amp filter voice page" title="amp filter voice" width="1200" height="1001" loading="lazy"></div><h3>Sampler</h3><p>A clean chromatic sampler: one file across the keyboard with band-limited playback, crossfaded loops, a filter and glide</p></article>
+        <article class="card"><img src="img/plugins/lucid-sample-kit-1-pads.jpg" alt="The Lucid Sample Kit editor, pads page" title="pads" width="1200" height="842" loading="lazy"><div class="pages"><img src="img/plugins/lucid-sample-kit-2-35-44.jpg" alt="The Lucid Sample Kit editor, 35 44 page" title="35 44" width="1200" height="842" loading="lazy"><img src="img/plugins/lucid-sample-kit-3-45-54.jpg" alt="The Lucid Sample Kit editor, 45 54 page" title="45 54" width="1200" height="842" loading="lazy"><img src="img/plugins/lucid-sample-kit-4-55-64.jpg" alt="The Lucid Sample Kit editor, 55 64 page" title="55 64" width="1200" height="842" loading="lazy"><img src="img/plugins/lucid-sample-kit-5-65-74.jpg" alt="The Lucid Sample Kit editor, 65 74 page" title="65 74" width="1200" height="842" loading="lazy"><img src="img/plugins/lucid-sample-kit-6-75-81.jpg" alt="The Lucid Sample Kit editor, 75 81 page" title="75 81" width="1200" height="842" loading="lazy"></div><h3>Sample Kit</h3><p>A drum sampler for GM kits: a file on every drum key from 35 to 81, loaded from a folder, with level, tune, decay and choke groups per pad</p></article>
+        <article class="card"><img src="img/plugins/lucid-nineties-sampler.jpg" alt="The Lucid Nineties Sampler editor" width="1200" height="1057" loading="lazy"><h3>Nineties Sampler</h3><p>Sample-ROM player: the nineties sound from SF2 / SoundFont 2 files, with a built-in font when none is loaded</p></article>
     </div>
     <h3 class="cat">MIDI tools <span>4</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Arp</h3><p>Arpeggiator: tempo-synced patterns with swing, accents and a step sequencer</p></div>
-        <div class="card"><h3>Chords</h3><p>Chord trigger: one key plays a full chord, fixed or in key, voiced, inverted and strummed</p></div>
-        <div class="card"><h3>Scale</h3><p>Scale quantizer: keeps every note in key, moves lines by scale degrees, holds them in a range</p></div>
-        <div class="card"><h3>Humanize</h3><p>MIDI humanizer: loose timing, swing, velocity curves and note lengths that make programmed parts feel played</p></div>
+        <article class="card"><img src="img/plugins/lucid-arp.jpg" alt="The Lucid Arp editor" width="1200" height="909" loading="lazy"><h3>Arp</h3><p>Arpeggiator: tempo-synced patterns with swing, accents and a step sequencer</p></article>
+        <article class="card"><img src="img/plugins/lucid-chords.jpg" alt="The Lucid Chords editor" width="1200" height="1203" loading="lazy"><h3>Chords</h3><p>Chord trigger: one key plays a full chord, fixed or in key, voiced, inverted and strummed</p></article>
+        <article class="card"><img src="img/plugins/lucid-scale.jpg" alt="The Lucid Scale editor" width="1200" height="658" loading="lazy"><h3>Scale</h3><p>Scale quantizer: keeps every note in key, moves lines by scale degrees, holds them in a range</p></article>
+        <article class="card"><img src="img/plugins/lucid-humanize.jpg" alt="The Lucid Humanize editor" width="1200" height="1130" loading="lazy"><h3>Humanize</h3><p>MIDI humanizer: loose timing, swing, velocity curves and note lengths that make programmed parts feel played</p></article>
     </div>
     <h3 class="cat">Dynamics <span>8</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Compressor</h3><p>Clean feed-forward compressor: soft knee, peak or RMS detection, a sidechain filter and parallel mix</p></div>
-        <div class="card"><h3>Bus Compressor</h3><p>Glue bus compressor: stepped console-style ratio, attack and release, auto release, a sidechain filter, external key and parallel mix</p></div>
-        <div class="card"><h3>Multiband</h3><p>Multiband compressor for masters: three or four phase-coherent bands, each with its own threshold, ratio, timing and makeup</p></div>
-        <div class="card"><h3>Limiter</h3><p>Lookahead brickwall limiter: true-peak detection, adaptive release and a hard output ceiling</p></div>
-        <div class="card"><h3>Gate</h3><p>Noise gate and expander: hysteresis, hold, lookahead, a filtered key you can listen to and a click-free gain curve</p></div>
-        <div class="card"><h3>De-esser</h3><p>Sibilance control, split or wide: turns down harsh esses only while they stick out, with a relative threshold that follows the voice</p></div>
-        <div class="card"><h3>Transient</h3><p>Transient shaper: more or less attack and sustain at any level, with no threshold to set</p></div>
-        <div class="card"><h3>Ducker</h3><p>Sidechain ducker and expander: duck under a kick or a voice, expand from a key, or pump in time without a sidechain</p></div>
+        <article class="card"><img src="img/plugins/lucid-compressor.jpg" alt="The Lucid Compressor editor" width="1200" height="691" loading="lazy"><h3>Compressor</h3><p>Clean feed-forward compressor: soft knee, peak or RMS detection, a sidechain filter and parallel mix</p></article>
+        <article class="card"><img src="img/plugins/lucid-bus-compressor.jpg" alt="The Lucid Bus Compressor editor" width="1200" height="667" loading="lazy"><h3>Bus Compressor</h3><p>Glue bus compressor: stepped console-style ratio, attack and release, auto release, a sidechain filter, external key and parallel mix</p></article>
+        <article class="card"><img src="img/plugins/lucid-multiband-1-main.jpg" alt="The Lucid Multiband editor, main page" title="main" width="1200" height="1103" loading="lazy"><div class="pages"><img src="img/plugins/lucid-multiband-2-bands.jpg" alt="The Lucid Multiband editor, bands page" title="bands" width="1200" height="1103" loading="lazy"></div><h3>Multiband</h3><p>Multiband compressor for masters: three or four phase-coherent bands, each with its own threshold, ratio, timing and makeup</p></article>
+        <article class="card"><img src="img/plugins/lucid-limiter.jpg" alt="The Lucid Limiter editor" width="1200" height="472" loading="lazy"><h3>Limiter</h3><p>Lookahead brickwall limiter: true-peak detection, adaptive release and a hard output ceiling</p></article>
+        <article class="card"><img src="img/plugins/lucid-gate.jpg" alt="The Lucid Gate editor" width="1200" height="778" loading="lazy"><h3>Gate</h3><p>Noise gate and expander: hysteresis, hold, lookahead, a filtered key you can listen to and a click-free gain curve</p></article>
+        <article class="card"><img src="img/plugins/lucid-de-esser.jpg" alt="The Lucid De-esser editor" width="1200" height="778" loading="lazy"><h3>De-esser</h3><p>Sibilance control, split or wide: turns down harsh esses only while they stick out, with a relative threshold that follows the voice</p></article>
+        <article class="card"><img src="img/plugins/lucid-transient.jpg" alt="The Lucid Transient editor" width="1200" height="886" loading="lazy"><h3>Transient</h3><p>Transient shaper: more or less attack and sustain at any level, with no threshold to set</p></article>
+        <article class="card"><img src="img/plugins/lucid-ducker.jpg" alt="The Lucid Ducker editor" width="1200" height="1091" loading="lazy"><h3>Ducker</h3><p>Sidechain ducker and expander: duck under a kick or a voice, expand from a key, or pump in time without a sidechain</p></article>
     </div>
     <h3 class="cat">EQ and filters <span>6</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>EQ</h3><p>Eight-band channel EQ: steep cuts, resonant shelves, four peaks and an exact response curve</p></div>
-        <div class="card"><h3>Dynamic EQ</h3><p>Four-band dynamic EQ: bells and shelves that cut or lift only while their band is loud, keyed by the track or a sidechain</p></div>
-        <div class="card"><h3>Lowpass</h3><p>Resonant low-pass filter: clean to ladder grit, with LFO, envelope follower and stereo spread</p></div>
-        <div class="card"><h3>Bandpass</h3><p>Resonant band-pass filter: center and width, from telephone to wah to siren</p></div>
-        <div class="card"><h3>Highpass</h3><p>Resonant high-pass filter: clean-ups, risers and thin, moving textures</p></div>
-        <div class="card"><h3>Auto Filter</h3><p>Resonant filter moved by an envelope follower and a tempo-synced LFO: auto-wah to stereo sweep</p></div>
+        <article class="card"><img src="img/plugins/lucid-eq.jpg" alt="The Lucid EQ editor" width="1200" height="1181" loading="lazy"><h3>EQ</h3><p>Eight-band channel EQ: steep cuts, resonant shelves, four peaks and an exact response curve</p></article>
+        <article class="card"><img src="img/plugins/lucid-dynamic-eq-1-main.jpg" alt="The Lucid Dynamic EQ editor, main page" title="main" width="1200" height="818" loading="lazy"><div class="pages"><img src="img/plugins/lucid-dynamic-eq-2-bands.jpg" alt="The Lucid Dynamic EQ editor, bands page" title="bands" width="1200" height="818" loading="lazy"></div><h3>Dynamic EQ</h3><p>Four-band dynamic EQ: bells and shelves that cut or lift only while their band is loud, keyed by the track or a sidechain</p></article>
+        <article class="card"><img src="img/plugins/lucid-lowpass.jpg" alt="The Lucid Lowpass editor" width="1200" height="1057" loading="lazy"><h3>Lowpass</h3><p>Resonant low-pass filter: clean to ladder grit, with LFO, envelope follower and stereo spread</p></article>
+        <article class="card"><img src="img/plugins/lucid-bandpass.jpg" alt="The Lucid Bandpass editor" width="1200" height="1021" loading="lazy"><h3>Bandpass</h3><p>Resonant band-pass filter: center and width, from telephone to wah to siren</p></article>
+        <article class="card"><img src="img/plugins/lucid-highpass.jpg" alt="The Lucid Highpass editor" width="1200" height="1057" loading="lazy"><h3>Highpass</h3><p>Resonant high-pass filter: clean-ups, risers and thin, moving textures</p></article>
+        <article class="card"><img src="img/plugins/lucid-auto-filter.jpg" alt="The Lucid Auto Filter editor" width="1200" height="984" loading="lazy"><h3>Auto Filter</h3><p>Resonant filter moved by an envelope follower and a tempo-synced LFO: auto-wah to stereo sweep</p></article>
     </div>
     <h3 class="cat">Modulation <span>6</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Chorus</h3><p>Lush stereo chorus: one to three voices, from subtle doubling to wide ensembles</p></div>
-        <div class="card"><h3>Flanger</h3><p>Stereo feedback flanger: from a gentle swirl to a screaming jet</p></div>
-        <div class="card"><h3>Phaser</h3><p>Stereo allpass phaser: from a gentle 4-stage swirl to a resonant 12-stage sweep</p></div>
-        <div class="card"><h3>Tremolo</h3><p>Tremolo and auto-pan: amp-style throb, harmonic tremolo and tempo-locked chops that never click</p></div>
-        <div class="card"><h3>Rotary</h3><p>A rotary speaker: horn and drum spinning up and braking on their own, tube drive, two mics</p></div>
-        <div class="card"><h3>Vocoder</h3><p>Channel vocoder: 8 to 32 bands from 80 Hz to 4.5 kHz put a voice&#x27;s shape on the sidechain or on a built-in saw, pulse or noise chord, with a separate pass for sibilants</p></div>
+        <article class="card"><img src="img/plugins/lucid-chorus.jpg" alt="The Lucid Chorus editor" width="1200" height="716" loading="lazy"><h3>Chorus</h3><p>Lush stereo chorus: one to three voices, from subtle doubling to wide ensembles</p></article>
+        <article class="card"><img src="img/plugins/lucid-flanger.jpg" alt="The Lucid Flanger editor" width="1200" height="643" loading="lazy"><h3>Flanger</h3><p>Stereo feedback flanger: from a gentle swirl to a screaming jet</p></article>
+        <article class="card"><img src="img/plugins/lucid-phaser.jpg" alt="The Lucid Phaser editor" width="1200" height="1057" loading="lazy"><h3>Phaser</h3><p>Stereo allpass phaser: from a gentle 4-stage swirl to a resonant 12-stage sweep</p></article>
+        <article class="card"><img src="img/plugins/lucid-tremolo.jpg" alt="The Lucid Tremolo editor" width="1200" height="826" loading="lazy"><h3>Tremolo</h3><p>Tremolo and auto-pan: amp-style throb, harmonic tremolo and tempo-locked chops that never click</p></article>
+        <article class="card"><img src="img/plugins/lucid-rotary.jpg" alt="The Lucid Rotary editor" width="1200" height="487" loading="lazy"><h3>Rotary</h3><p>A rotary speaker: horn and drum spinning up and braking on their own, tube drive, two mics</p></article>
+        <article class="card"><img src="img/plugins/lucid-vocoder.jpg" alt="The Lucid Vocoder editor" width="1200" height="927" loading="lazy"><h3>Vocoder</h3><p>Channel vocoder: 8 to 32 bands from 80 Hz to 4.5 kHz put a voice&#x27;s shape on the sidechain or on a built-in saw, pulse or noise chord, with a separate pass for sibilants</p></article>
     </div>
     <h3 class="cat">Delay and reverb <span>6</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Delay</h3><p>Tempo-synced stereo delay: ping-pong, tape age and ducking, from slapback to dub</p></div>
-        <div class="card"><h3>Tape Delay</h3><p>Tape echo: three heads, drive up to self-oscillation, wow, flutter and an aging tape</p></div>
-        <div class="card"><h3>Reverb</h3><p>Algorithmic stereo reverb: smooth, dense tails from small rooms to endless halls</p></div>
-        <div class="card"><h3>Shimmer</h3><p>Shimmer reverb: a lush tail that climbs in pitch, with a freeze that holds it forever</p></div>
-        <div class="card"><h3>Spring</h3><p>Spring tank with a real chirp and drip, and a Dattorro plate beside it</p></div>
-        <div class="card"><h3>IR Reverb</h3><p>Convolution reverb: ten real spaces from the OpenAIR library (CC BY 4.0) and your own impulse responses</p></div>
+        <article class="card"><img src="img/plugins/lucid-delay.jpg" alt="The Lucid Delay editor" width="1200" height="716" loading="lazy"><h3>Delay</h3><p>Tempo-synced stereo delay: ping-pong, tape age and ducking, from slapback to dub</p></article>
+        <article class="card"><img src="img/plugins/lucid-tape-delay.jpg" alt="The Lucid Tape Delay editor" width="1200" height="576" loading="lazy"><h3>Tape Delay</h3><p>Tape echo: three heads, drive up to self-oscillation, wow, flutter and an aging tape</p></article>
+        <article class="card"><img src="img/plugins/lucid-reverb.jpg" alt="The Lucid Reverb editor" width="1200" height="643" loading="lazy"><h3>Reverb</h3><p>Algorithmic stereo reverb: smooth, dense tails from small rooms to endless halls</p></article>
+        <article class="card"><img src="img/plugins/lucid-shimmer.jpg" alt="The Lucid Shimmer editor" width="1200" height="724" loading="lazy"><h3>Shimmer</h3><p>Shimmer reverb: a lush tail that climbs in pitch, with a freeze that holds it forever</p></article>
+        <article class="card"><img src="img/plugins/lucid-spring.jpg" alt="The Lucid Spring editor" width="1200" height="1057" loading="lazy"><h3>Spring</h3><p>Spring tank with a real chirp and drip, and a Dattorro plate beside it</p></article>
+        <article class="card"><img src="img/plugins/lucid-ir-reverb.jpg" alt="The Lucid IR Reverb editor" width="1200" height="735" loading="lazy"><h3>IR Reverb</h3><p>Convolution reverb: ten real spaces from the OpenAIR library (CC BY 4.0) and your own impulse responses</p></article>
     </div>
     <h3 class="cat">Drive <span>5</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Saturation</h3><p>Tape, tube, transformer, console: analog warmth that adds harmonics to tracks and buses without sounding distorted</p></div>
-        <div class="card"><h3>Overdrive</h3><p>Warm, touch-sensitive drive: screamer mid push, blues crunch or tube warmth</p></div>
-        <div class="card"><h3>Distortion</h3><p>Five-mode distortion: hard clip, sputtering fuzz, wavefolding, rectifying and lo-fi crushing, oversampled</p></div>
-        <div class="card"><h3>Cabinet</h3><p>Guitar and bass cabinet simulator: captured and designed cabinets, two mics, distance and your own IRs</p></div>
-        <div class="card"><h3>Bitcrusher</h3><p>Lo-fi converter: continuous bit depth, sample-rate reduction, dither, jitter, hiss, crackle and wobble</p></div>
+        <article class="card"><img src="img/plugins/lucid-saturation.jpg" alt="The Lucid Saturation editor" width="1200" height="1057" loading="lazy"><h3>Saturation</h3><p>Tape, tube, transformer, console: analog warmth that adds harmonics to tracks and buses without sounding distorted</p></article>
+        <article class="card"><img src="img/plugins/lucid-overdrive.jpg" alt="The Lucid Overdrive editor" width="1200" height="621" loading="lazy"><h3>Overdrive</h3><p>Warm, touch-sensitive drive: screamer mid push, blues crunch or tube warmth</p></article>
+        <article class="card"><img src="img/plugins/lucid-distortion.jpg" alt="The Lucid Distortion editor" width="1200" height="856" loading="lazy"><h3>Distortion</h3><p>Five-mode distortion: hard clip, sputtering fuzz, wavefolding, rectifying and lo-fi crushing, oversampled</p></article>
+        <article class="card"><img src="img/plugins/lucid-cabinet.jpg" alt="The Lucid Cabinet editor" width="1200" height="805" loading="lazy"><h3>Cabinet</h3><p>Guitar and bass cabinet simulator: captured and designed cabinets, two mics, distance and your own IRs</p></article>
+        <article class="card"><img src="img/plugins/lucid-bitcrusher.jpg" alt="The Lucid Bitcrusher editor" width="1200" height="643" loading="lazy"><h3>Bitcrusher</h3><p>Lo-fi converter: continuous bit depth, sample-rate reduction, dither, jitter, hiss, crackle and wobble</p></article>
     </div>
     <h3 class="cat">Pitch, stereo and utility <span>3</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Harmonizer</h3><p>Pitch shifter and harmonizer: two voices with fixed or in-key intervals, feedback and formant preservation at a constant 40 ms latency</p></div>
-        <div class="card"><h3>Imager</h3><p>Multiband stereo imager: width per band, bass mono, mid / side balance and a mono-safe stereoizer, with correlation and balance meters</p></div>
-        <div class="card"><h3>Utility</h3><p>Gain, pan and stereo toolbox: trim, balance, widen, mono the bass, flip polarity and align channels on any track</p></div>
+        <article class="card"><img src="img/plugins/lucid-harmonizer.jpg" alt="The Lucid Harmonizer editor" width="1200" height="531" loading="lazy"><h3>Harmonizer</h3><p>Pitch shifter and harmonizer: two voices with fixed or in-key intervals, feedback and formant preservation at a constant 40 ms latency</p></article>
+        <article class="card"><img src="img/plugins/lucid-imager.jpg" alt="The Lucid Imager editor" width="1200" height="863" loading="lazy"><h3>Imager</h3><p>Multiband stereo imager: width per band, bass mono, mid / side balance and a mono-safe stereoizer, with correlation and balance meters</p></article>
+        <article class="card"><img src="img/plugins/lucid-utility.jpg" alt="The Lucid Utility editor" width="1200" height="959" loading="lazy"><h3>Utility</h3><p>Gain, pan and stereo toolbox: trim, balance, widen, mono the bass, flip polarity and align channels on any track</p></article>
     </div>
     <h3 class="cat">Meters and reference <span>7</span></h3>
     <div class="grid plugins">
-        <div class="card"><h3>Spectrum</h3><p>Real-time spectrum analyzer: a calibrated FFT spectrum with average, peak hold, slope and left / right or mid / side curves</p></div>
-        <div class="card"><h3>Spectrogram</h3><p>Scrolling spectrogram: a heat map of the spectrum over time, on a log or linear frequency axis, in four color maps</p></div>
-        <div class="card"><h3>Loudness</h3><p>EBU R128 loudness meter: integrated, short-term and momentary LUFS, loudness range and true peak against your delivery target</p></div>
-        <div class="card"><h3>Pitch</h3><p>Tuner and pitch tracker: a cent-accurate needle and a scrolling melody line for any monophonic source</p></div>
-        <div class="card"><h3>Stereo Scope</h3><p>Stereo field meter: a goniometer with phase correlation per band, balance and width, to check mono compatibility and the stereo image</p></div>
-        <div class="card"><h3>Correlation</h3><p>Phase and correlation meter: correlation over time, per band and as a goniometer, balance and a mono check, with the audio untouched</p></div>
-        <div class="card"><h3>Reference</h3><p>Reference A/B: switch between your mix and a reference track, loudness matched, with its transport, loop and mono check</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="screenshots">
-  <div class="wrap">
-    <h2>Screenshots</h2>
-    <p class="intro">Rendered from the plugins' own editors. Click an image to enlarge it.</p>
-    <div class="gallery">
-      <figure><img src="img/pipe-organ.jpg" alt="The Lucid Pipe Organ editor on its stops page" width="1280" height="690" loading="lazy"><figcaption>Lucid Pipe Organ: twelve modelled stops and live wind.</figcaption></figure>
-      <figure><img src="img/eq.jpg" alt="The Lucid EQ editor with its response curve" width="1280" height="1259" loading="lazy"><figcaption>Lucid EQ: eight bands and an exact response curve.</figcaption></figure>
-      <figure><img src="img/synth.jpg" alt="The Lucid Synth editor on its oscillators page" width="1280" height="926" loading="lazy"><figcaption>Lucid Synth: oscillators, sub and noise on the first page.</figcaption></figure>
-      <figure><img src="img/granular.jpg" alt="The Lucid Granular editor on its grains page" width="1280" height="958" loading="lazy"><figcaption>Lucid Granular: a cloud of grains from built-in voices or your own file.</figcaption></figure>
-      <figure><img src="img/drums.jpg" alt="The Lucid Drums editor showing the kit page" width="1280" height="973" loading="lazy"><figcaption>Lucid Drums: a fully synthesized General MIDI kit.</figcaption></figure>
-      <figure><img src="img/multiband.jpg" alt="The Lucid Multiband editor" width="1280" height="1176" loading="lazy"><figcaption>Lucid Multiband: phase-coherent bands for masters.</figcaption></figure>
-      <figure><img src="img/spectrogram.jpg" alt="The Lucid Spectrogram editor showing a heat map" width="1280" height="861" loading="lazy"><figcaption>Lucid Spectrogram: the spectrum over time.</figcaption></figure>
-      <figure><img src="img/loudness.jpg" alt="The Lucid Loudness meter" width="1280" height="861" loading="lazy"><figcaption>Lucid Loudness: EBU R128 against your delivery target.</figcaption></figure>
-      <figure><img src="img/arp.jpg" alt="The Lucid Arp editor with its step sequencer" width="1280" height="969" loading="lazy"><figcaption>Lucid Arp: a MIDI tool with a step sequencer.</figcaption></figure>
+        <article class="card"><img src="img/plugins/lucid-spectrum.jpg" alt="The Lucid Spectrum editor" width="1200" height="807" loading="lazy"><h3>Spectrum</h3><p>Real-time spectrum analyzer: a calibrated FFT spectrum with average, peak hold, slope and left / right or mid / side curves</p></article>
+        <article class="card"><img src="img/plugins/lucid-spectrogram.jpg" alt="The Lucid Spectrogram editor" width="1200" height="807" loading="lazy"><h3>Spectrogram</h3><p>Scrolling spectrogram: a heat map of the spectrum over time, on a log or linear frequency axis, in four color maps</p></article>
+        <article class="card"><img src="img/plugins/lucid-loudness.jpg" alt="The Lucid Loudness editor" width="1200" height="807" loading="lazy"><h3>Loudness</h3><p>EBU R128 loudness meter: integrated, short-term and momentary LUFS, loudness range and true peak against your delivery target</p></article>
+        <article class="card"><img src="img/plugins/lucid-pitch.jpg" alt="The Lucid Pitch editor" width="1200" height="784" loading="lazy"><h3>Pitch</h3><p>Tuner and pitch tracker: a cent-accurate needle and a scrolling melody line for any monophonic source</p></article>
+        <article class="card"><img src="img/plugins/lucid-stereo-scope.jpg" alt="The Lucid Stereo Scope editor" width="1200" height="937" loading="lazy"><h3>Stereo Scope</h3><p>Stereo field meter: a goniometer with phase correlation per band, balance and width, to check mono compatibility and the stereo image</p></article>
+        <article class="card"><img src="img/plugins/lucid-correlation.jpg" alt="The Lucid Correlation editor" width="1200" height="930" loading="lazy"><h3>Correlation</h3><p>Phase and correlation meter: correlation over time, per band and as a goniometer, balance and a mono check, with the audio untouched</p></article>
+        <article class="card"><img src="img/plugins/lucid-reference.jpg" alt="The Lucid Reference editor" width="1200" height="993" loading="lazy"><h3>Reference</h3><p>Reference A/B: switch between your mix and a reference track, loudness matched, with its transport, loop and mono check</p></article>
     </div>
   </div>
 </section>
@@ -372,7 +356,7 @@
 <script>
   const zoom = document.getElementById("zoom");
   const zoomImg = zoom.querySelector("img");
-  document.querySelectorAll(".gallery img").forEach((img) => {
+  document.querySelectorAll(".plugins img").forEach((img) => {
     img.addEventListener("click", () => {
       zoomImg.src = img.src;
       zoomImg.alt = img.alt;
