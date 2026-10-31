@@ -46,7 +46,7 @@
     nav ul a { color: var(--text-dim); }
     nav ul a:hover { color: var(--text); text-decoration: none; }
 
-    .collage { display: block; }
+    .collage { display: block; margin: 44px auto 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); }
     .collage img { width: 100%; }
 
     header.hero { padding: 64px 0 40px; text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(182, 255, 0, 0.12), transparent 60%); }
@@ -137,11 +137,7 @@
   </div>
 </nav>
 
-<a class="collage" id="top" href="img/collage-full.jpg" title="Open the full-size collage">
-  <img src="img/collage.jpg" alt="A collage of every page of all 64 Lucid Essentials plugin editors" width="1600" height="945">
-</a>
-
-<header class="hero">
+<header class="hero" id="top">
   <div class="wrap">
     <img class="logo" src="img/logo.png" alt="Lucid Essentials logo">
     <h1>64 plugins, <span>one</span> interface</h1>
@@ -156,6 +152,9 @@
       <li>Command line tool</li>
       <li class="status">Pre-alpha · 0.2.0</li>
     </ul>
+    <a class="collage" href="img/collage-full.jpg" title="Open the full-size collage">
+      <img src="img/collage.jpg" alt="A collage of every page of all 64 Lucid Essentials plugin editors" width="1600" height="945">
+    </a>
   </div>
 </header>
 
